@@ -1,0 +1,88 @@
+provider "aws" {
+  region = var.region
+}
+
+variable "region" {
+  type = string
+}
+
+variable "vpc_cidr" {
+  type = string
+}
+
+variable "subnets" {
+  type = list(map(string))
+}
+
+data "template_file" "input_vars" {
+  template = file("input.json")
+
+  vars = {
+    region    = var.region
+    vpc_cidr  = var.vpc_cidr
+    subnets = jsonencode(var.subnets)
+  }
+}
+
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  name = "vpc"
+
+  cidr = var.vpc_cidr
+
+  subnets = jsondecode(data.template_file.input_vars.vars.subnets)
+}
+
+module "network_acls" {
+  source = "terraform-aws-modules/network-acls/aws"
+
+  vpc_id = module.vpc.vpc_id
+
+  subnets_private = module.vpc.private_subnets
+  subnets_public  = module.vpc.public_subnets
+}
+
+module "routes" {
+  source = "terraform-aws-modules/routes/aws"
+
+  vpc_id = module.vpc.vpc_id
+
+  subnets_private = module.vpc.private_subnets
+  subnets_public  = module.vpc.public_subnets
+}
+
+resource "aws_subnet" "private" {
+  count = length(module.vpc.private_subnets)
+
+  vpc_id     = module.vpc.vpc_id
+  cidr_block = module.vpc.private_subnets[count.index].cidr_block
+
+  tags = {
+    Name = "private-${count.index}"
+  }
+
+  network_acl_id = aws_network_acl.private[count.index].id
+  route_table_id = aws_route_table.private[count.index].id
+}
+
+resource "aws_network_acl" "private" {
+  count = length(module.vpc.private_subnets)
+
+  vpc_id = module.vpc.vpc_id
+
+  ingress {
+    from_port = 0
+    to_port   = 65535
+    action    = "allow"
+    protocol  = "-1"
+    cidr_block = module.vpc.private_subnets[count.index].cidr_block
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 65535
+    action    = "allow"
+    protocol  = "-1"
+    cidr_block = module.vpc.private_subnets[count.index].cidr_block
+  }

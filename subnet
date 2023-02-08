@@ -1,24 +1,6 @@
-data "aws_route_table" "publicsubnet" {
-  count = 3
-
-  filter {
-    name   = "tag:Name"
-    values = ["publicsubnet-2${chr(97 + count.index)}-rt"]
-  }
-}
-
-data "aws_subnet" "publicsubnet" {
-  count = 3
-
-  filter {
-    name   = "tag:Name"
-    values = ["publicsubnet-2${chr(97 + count.index)}"]
-  }
-}
-
 resource "aws_route_table_association" "publicsubnet" {
   count = 3
 
-  subnet_id      = data.aws_subnet.publicsubnet[count.index].id
-  route_table_id = data.aws_route_table.publicsubnet[count.index].id
+  subnet_id      = aws_subnet[format("publicsubnet-2%c", 97 + count.index)].id
+  route_table_id = aws_route_table[format("publicsubnet-2%c-rt", 97 + count.index)].id
 }

@@ -1,0 +1,23 @@
+{
+    "Publicsubnet-2a": {
+        "Subnet-Name" : "Publicsubnet-2a",
+      "cidr_block" : "10.151.0.0/22",
+      "availability_zone" : "us-west-2a",
+      "rt-name" : "Publicsubnet-2a-rt",
+      "Nacl-name": "Publicsubnet-2a-Nacl"
+    },
+    "Publicsubnet-2b": {
+        "Subnet-Name" : "Publicsubnet-2b",
+      "cidr_block" : "10.151.4.0/22",
+      "availability_zone" : "us-west-2b",
+      "rt-name" : "Publicsubnet-2b-rt",
+      "Nacl-name": "Publicsubnet-2b-Nacl"
+    },
+    "Publicsubnet-2c": {
+        "Subnet-Name" : "Publicsubnet-1c",
+      "cidr_block" : "10.151.8.0/22",
+      "availability_zone" : "us-west-2c",
+      "rt-name" : "Publicsubnet-2c-rt",
+      "Nacl-name": "Publicsubnet-2c-Nacl"
+    }
+  }

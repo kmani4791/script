@@ -1,0 +1,23 @@
+{
+  "dataSubnet-2a": {
+    "Subnet-Name" : "dataSubnet-2a",
+    "cidr_block" : "10.151.36.0/22",
+    "availability_zone" : "us-west-2a",
+    "rt-name" : "datasubnet-2a-rt",
+    "Nacl-name": "datasubnet-2a-Nacl"
+  },
+  "dataSubnet-2b": {
+    "Subnet-Name" : "dataSubnet-2b",
+    "cidr_block" : "10.151.40.0/22",
+    "availability_zone" : "us-west-2b",
+    "rt-name" : "datasubnet-2b-rt",
+    "Nacl-name": "Websubnet-2b-Nacl"
+  },
+  "dataSubnet-2c": {
+    "Subnet-Name" : "dataSubnet-1c",
+    "cidr_block" : "10.151.44.0/22",
+    "availability_zone" : "us-west-2c",
+    "rt-name" : "datasubnet-2c-rt",
+    "Nacl-name": "Websubnet-2c-Nacl"
+  }
+}

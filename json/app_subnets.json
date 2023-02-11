@@ -1,0 +1,24 @@
+{
+  "appSubnet-2a": {
+      "Subnet-Name" : "appSubnet-2a",
+    "cidr_block" : "10.151.24.0/22",
+    "availability_zone" : "us-west-2a",
+    "rt-name" : "appsubnet-2a-rt",
+    "Nacl-name": "appsubnet-2a-Nacl"
+  },
+  "appSubnet-2b": {
+      "Subnet-Name" : "appSubnet-2b",
+    "cidr_block" : "10.151.28.0/22",
+    "availability_zone" : "us-west-2b",
+    "rt-name" : "appsubnet-2b-rt",
+    "Nacl-name": "appsubnet-2b-Nacl"
+
+  },
+  "appSubnet-2c": {
+      "Subnet-Name" : "appSubnet-1c",
+    "cidr_block" : "10.151.32.0/22",
+    "availability_zone" : "us-west-2c",
+    "rt-name" : "appsubnet-2c-rt",
+    "Nacl-name": "appsubnet-2c-Nacl"
+  }
+}

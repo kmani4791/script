@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "subnet_name" : "Publicsubnet-2a",
+      "destination_cidr_block" : "",
+      "gateway_id" : "",
+      "network_interface_id": "",
+      "instance_id" : "",
+      "vpc_peering_connection_id" : ""
+    },
+  {
+    "subnet_name" : "Publicsubnet-2b",
+    "destination_cidr_block" : "",
+    "gateway_id" : "",
+    "network_interface_id": "",
+    "instance_id" : "",
+    "vpc_peering_connection_id" : ""
+  },
+{
+  "subnet_name" : "Publicsubnet-2c",
+  "destination_cidr_block" : "",
+  "gateway_id" : "",
+  "network_interface_id": "",
+  "instance_id" : "",
+  "vpc_peering_connection_id" : ""
+}
+  ]
+}

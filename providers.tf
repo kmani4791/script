@@ -3,8 +3,8 @@
 
 #  default_tags {
 #    tags = {
-#      Project   = "CI-VPC-DR"
-#      Team      = "creditsights-systems"
+#      Project   = "VPC"
+#      Team      = "systems"
 #      ManagedBy = "terraform"
 #    }
 #  }
@@ -14,8 +14,8 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project   = "CI-VPC-DR"
-      Team      = "creditsights-systems"
+      Project   = "VPC"
+      Team      = "systems"
       ManagedBy = "terraform"
     }
   }

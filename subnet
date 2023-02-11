@@ -1,6 +1,0 @@
-resource "aws_route_table_association" "publicsubnet" {
-  count = 3
-
-  subnet_id      = aws_subnet[format("publicsubnet-2%c", 97 + count.index)].id
-  route_table_id = aws_route_table[format("publicsubnet-2%c-rt", 97 + count.index)].id
-}

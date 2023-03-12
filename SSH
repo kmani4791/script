@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Set AWS Region
+aws_region="us-east-1"
+
+# Set SNS topic ARN
+sns_topic_arn="arn:aws:sns:us-east-1:123456789012:WorkspaceTermination"
+
+# Get current date in UTC
+current_date=$(date -u +%s)
+
+# Initialize list of terminated workspace IDs
+terminated_workspaces=""
+
+# Read each line from file.txt
+while read line; do
+    # Get last accessed time of workspace
+    last_accessed=$(aws workspaces describe-workspaces-connection-status --workspace-id "$line" --query "ConnectionStatus.lastKnownUserConnectionTimestamp" --output text)
+    
+    # Calculate number of days since last accessed
+    last_accessed_date=$(date -d "$last_accessed" +%s)
+    days_since_accessed=$(( (current_date - last_accessed_date) / (60 * 60 * 24) ))
+    
+    # Terminate workspace if not accessed in over 30 days
+    if [ $days_since_accessed -gt 30 ]; then
+        echo "Terminating workspace $line..."
+        aws workspaces terminate-workspaces --terminate-workspace-requests "WorkspaceId=$line"
+        
+        # Add workspace ID to list of terminated workspaces
+        terminated_workspaces="$terminated_workspaces $line"
+    fi
+done < file.txt
+
+# Send email notification with list of terminated workspace IDs
+if [ -n "$terminated_workspaces" ]; then
+    message="The following WorkSpaces were terminated: $terminated_workspaces"
+    aws sns publish --region $aws_region --topic-arn $sns_topic_arn --message "$message"
+fi
